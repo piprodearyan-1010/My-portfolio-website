@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aryan piprode — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --surface2: #1a1a1a;
+      --border: #222222;
+      --text: #e8e0d5;
+      --muted: #6b6560;
+      --accent: #c9a96e;
+      --accent2: #8b6f47;
+      --highlight: #f0e6d3;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+   
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 4rem;
+      backdrop-filter: blur(12px);
+      background: rgba(10,10,10,0.85);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid-line {
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: var(--border);
+      opacity: 0.5;
+    }
+
+    .hero-tagline {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 700;
+      line-height: 1.0;
+      color: var(--highlight);
+      animation: fadeUp 0.8s 0.15s ease both;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      max-width: 520px;
+      margin-top: 1.8rem;
+      font-size: 1.05rem;
+      color: var(--muted);
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .hero-cta {
+      margin-top: 3rem;
+      display: flex;
+      gap: 1.2rem;
+      animation: fadeUp 0.8s 0.45s ease both;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s;
+    }
+
+    .btn:hover { background: var(--accent); color: var(--bg); }
+
+    .btn-filled { background: var(--accent); color: var(--bg); }
+    .btn-filled:hover { background: var(--accent2); border-color: var(--accent2); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 4rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--muted);
+    }
+
+    section { padding: 7rem 4rem; }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--highlight);
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+    }
+
+  
+    #about { background: var(--surface); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+.about-image-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+
+
+
+.about-image-wrap img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+  border-radius: 6px;
+}
+
+
+
+    .about-content p {
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+      font-size: 1.02rem;
+    }
+
+    .about-content p strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.4rem;
+    }
+
+   
+    #skills { background: var(--bg); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      transition: border-color 0.25s, transform 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 0;
+      background: var(--accent);
+      transition: height 0.3s ease;
+    }
+
+    .skill-card:hover { border-color: var(--accent2); transform: translateY(-3px); }
+    .skill-card:hover::after { height: 100%; }
+
+    .skill-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .skill-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--highlight);
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-desc { font-size: 0.88rem; color: var(--muted); }
+
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      padding: 0.25rem 0.6rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+
+    #projects { background: var(--surface); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+      cursor: pointer;
+    }
+
+    .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+
+   
+
+    .project-thumb-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--surface2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-body { padding: 1.8rem; }
+
+    .project-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--highlight);
+      margin-bottom: 0.7rem;
+    }
+
+    .project-desc { font-size: 0.88rem; color: var(--muted); margin-bottom: 1.2rem; }
+
+    .project-links { display: flex; gap: 1rem; }
+
+    .project-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: color 0.2s;
+    }
+
+    .project-link:hover { color: var(--highlight); }
+
+ 
+    
+    #contact { background: var(--surface); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .contact-icon {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1rem;
+    }
+
+    .contact-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .contact-value {
+      font-size: 1rem;
+      color: var(--highlight);
+      text-decoration: none;
+    }
+
+    .contact-value:hover { color: var(--accent); }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .form-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .form-input, .form-textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 0.8rem 1rem;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+
+    .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+
+    .form-textarea { min-height: 120px; }
+
+    
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .social-links { display: flex; gap: 1.5rem; }
+
+    .social-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .social-links a:hover { color: var(--accent); }
+
+    
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    
+    @media (max-width: 900px) {
+      nav { padding: 1rem 2rem; }
+      .nav-links { gap: 1.5rem; }
+      section { padding: 5rem 2rem; }
+      #hero { padding: 0 2rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-image-wrap { max-width: 280px; }
+      .resume-inner { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .hero-scroll { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem; }
+      .nav-logo { font-size: 1rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.6rem; }
+      .hero-cta { flex-direction: column; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  
+  <nav>
+    <a href="#hero" class="nav-logo"> portfolio </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#resume">Resume</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+ 
+  <section id="hero">
+    <div class="hero-grid-line" style="left:33%"></div>
+    <div class="hero-grid-line" style="left:66%"></div>
+    <p class="hero-tagline">Front-End Developer &amp; Designer</p>
+    <h1 class="hero-name">Aryan<br><em>piprode</em></h1>
+    <p class="hero-sub">I design and build meaningful digital experiences with clean code and intuitive design..</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-filled">View My Work</a>
+      <a href="#contact" class="btn">Let's Talk</a>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <div class="divider"></div>
+
+ 
+  <section id="about">
+    <p class="section-label fade-in">01 — About</p>
+    <h2 class="section-title fade-in">Crafted with<br><em style="font-style:italic; color:var(--accent)">Purpose</em></h2>
+    <div class="about-grid">
+      <div class="about-image-wrap fade-in">
+        <img src="formal photo.jpeg" alt="My Photo" class="about-image">
+        
+      </div>
+      <div class="about-content fade-in">
+        <p>Hello! I'm <strong>Aryan piprode</strong>, a front-end developer based in Nagpur,Maharastra,INDIA..</p>
+        <p>I am a Front-End Developer with a strong foundation in HTML, CSS, and JavaScript, currently seeking an internship opportunity to apply and enhance my skills. I have experience building responsive and user-friendly web interfaces and am passionate about creating modern digital experiences. </p>
+        <p>My long-term goal is to  work on real-world applications that make a difference. I am committed to continuous learning, consistency, and self-improvement. I believe that success in technology comes from discipline, curiosity, and the ability to adapt and grow with time.
+
+Through my work, I aim to contribute to innovative projects, collaborate with like-minded individuals, and create digital solutions that truly matter. This portfolio is not just a collection of my work, but a reflection of my journey, my learning, and my purpose to grow as a developer.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  
+  <section id="skills">
+    <p class="section-label fade-in">02 — Skills</p>
+    <h2 class="section-title fade-in">Areas of <em style="font-style:italic; color:var(--accent)">Expertise</em></h2>
+    <div class="skills-grid">
+
+      <div class="skill-card fade-in">
+        <div class="skill-icon">⚛️</div>
+        <div class="skill-name">Front-End Development</div>
+        <div class="skill-desc">Building pixel-perfect, responsive interfaces with modern frameworks and a focus on performance.</div>
+        <div class="skill-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">CSS/SCSS</span>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+ 
+  <section id="projects">
+    <p class="section-label fade-in">03 — Projects</p>
+    <h2 class="section-title fade-in">Selected <em style="font-style:italic; color:var(--accent)">Work</em></h2>
+    <div class="projects-grid">
+
+      <div class="project-card fade-in">
+        <div class="project-thumb-placeholder">🛒</div>
+        <div class="project-body">
+          <div class="project-number">Project 02</div>
+          <div class="project-title">istore</div>
+          <p class="project-desc">An e-commerce platform whih sell premium mobile phone to the customer .</p>
+          <div class="skill-tags" style="margin-bottom:1.2rem">
+            <span class="tag">HTML</span><span class="tag">CSS</span><span 
+            class="tag">java script</span><span 
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">↗ Live Demo</a>
+            <a href="#" class="project-link">⌥ GitHub</a>
+          </div>
+        </div>
+      </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+ 
+  <section id="resume">
+    <p class="section-label fade-in">04 — Resume</p>
+    <h2 class="section-title fade-in">My <em style="font-style:italic; color:var(--accent)">Background</em></h2>
+    <div class="resume-inner">
+      <div class="resume-text fade-in">
+        <p>I am  currently pursuing my engineering degree at Raisoni College. I have a strong interest in building modern and user-friendly web applications, and I am currently learning and improving my skills in HTML, CSS, and JavaScript.
+
+I completed my secondary and higher secondary education with 78% in 10th grade and 72% in 12th grade, building a solid academic foundation. With a consistent learning mindset, I am now focused on developing practical skills through real-world projects and hands-on experience.
+
+I am passionate about technology and continuously working towards becoming a Full Stack Developer. I believe in discipline, consistency, and learning by building, and I aim to create impactful digital solutions in the future</p>
+<div style="margin-top: 1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+  <a href="resume.pdf" target="_blank" class="btn">
+    View Resume ↗
+  </a>
+  <a href="resume.pdf" download class="btn btn-filled">
+    Download ↓
+  </a>
+</div>
+
+
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── CONTACT ── -->
+  <section id="contact">
+    <p class="section-label fade-in">05 — Contact</p>
+    <h2 class="section-title fade-in">Let's <em style="font-style:italic; color:var(--accent)">Connect</em></h2>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-item fade-in">
+          <div class="contact-icon">✉</div>
+          <div>
+            <div class="contact-label">Email</div>
+            <a href="mailto:piprodearyan@gmail.com" class="contact-value">piprodearyan@gmail.com</a>
+          </div>
+        </div>
+        <div class="contact-item fade-in">
+          <div class="contact-icon">📞</div>
+          <div>
+            <div class="contact-label">Phone</div>
+            <a href="tel:+14155550123" class="contact-value">+91 9734567685</a>
+          </div>
+        </div>
+        <div class="contact-item fade-in">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-label">Location</div>
+            <span class="contact-value">Nagpur,Maharastra</span>
+          </div>
+        </div>
+        <div class="contact-item fade-in">
+          <div class="contact-icon">🔗</div>
+          <div>
+            <div class="contact-label">LinkedIn</div>
+            <a href="#" class="contact-value">linkedin.com/in/aryanpiprode</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form fade-in">
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input type="text" class="form-input" placeholder="write name"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" placeholder="gmail@example.com"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Tell me about your project..."></textarea>
+        </div>
+        <button class="btn btn-filled" style="align-self:flex-start; border:none; cursor:pointer;">
+          Send Message →
+        </button>
+      </div>
+    </div>
+  </section>
+
+  
+  <footer>
+    <span class="footer-copy"> Designed & Built with care.</span>
+    <div class="social-links">
+      <a href="#">GitHub</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Twitter</a>
+      <a href="#">Dribbble</a>
+    </div>
+  </footer>
+
+  <script>
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+   
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--accent)' : '';
+      });
+    });
+  </script>
+</body>
+</html>
